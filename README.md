@@ -1,8 +1,8 @@
  Desempenho vs. Resultado
 
-Análise de dados que compara o desempenho real dos times (medido via xG - Expected Goals)
-com os resultados efetivamente obtidos, identificando quais equipes tiveram sorte ou azar
-ao longo do campeonato.
+Análise de dados que compara o desempenho ofensivo/defensivo histórico dos times
+com os resultados efetivamente obtidos, usando um modelo de Poisson para estimar
+quantos pontos cada time "deveria" ter feito — e identificar quem teve sorte e quem teve azar.
 
 Pergunta central
 
@@ -10,13 +10,16 @@ O time que "merece" vencer, baseado no seu desempenho em campo, é realmente o q
 Ou existem times sistematicamente "azarados" (jogam bem, pontuam pouco) e "sortudos"
 (jogam mal, pontuam muito)?
 
- Metodologia
+Metodologia
 
-1. Coleta de dados de xG (Expected Goals) do Brasileirão pelo FootyStats
-2. Coleta de resultados reais e pontos via API de dados esportivos
-3. Conversão de xG usando distribuição de Poisson
-4. Cálculo do Índice de Sorte/Azar = Pontos Reais - Pontos Esperados
-5. Validação da robustez da métrica em múltiplas temporadas
+1. Coleta de dados históricos de partidas do Brasileirão (dataset público, 2003-2024)
+2. Cálculo de índices de ataque e defesa por time, relativos à média da liga
+3. Estimativa de gols esperados por partida (ataque de um time x defesa do outro)
+4. Conversão de gols esperados em pontos esperados via distribuição de Poisson
+5. Índice de Sorte/Azar = Pontos Reais - Pontos Esperados
+6. Validação: teste de consistência do índice entre temporadas (2022-2024)
+
+métrica própria de "desempenho esperado" a partir do histórico de gols
 
 Estrutura do projeto
 
@@ -33,11 +36,11 @@ analise-brasileirao/
 └── README.md
 ```
 
-Bibliografia
+Fontes de dados
 
-- FootyStats - xG Brasileirão (https://footystats.org/pt/brazil/serie-a/xg)
-- API de dados esportivos
+- Brasileirao_Dataset (adaoduque) - github.com/adaoduque/Brasileirao_Dataset
+  Dataset público com todas as partidas do Brasileirão Série A desde 2003
 
-Em desenvolvimento
+Análise e modelagem completas.
 
 Gustavo Cruz | [LinkedIn](linkedin.com/in/gustavo-goncalves-cruz/) | [GitHub](https://github.com/Guszzs)
